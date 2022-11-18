@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+//Controller : afficher un paramètre
+Route::get('/{param}','App\Http\controllers\listePokemonsController@show');
+
+/*
+Route::get('/', function () {
+    return view('welcome');
+});
+*/
+
+/*
+//Hello World examples:
+Route::get('/', function () {
+    return "Hello World!";
+ });
+ 
+Route::get('/', function () {
+   echo "Hello World";
+});*/
+
+/*Ajout d'options
+Route::get('/{prenom}/{nom}', function () { //ex d'appel : http://localhost:8000/myName/mySurname
+    return "Hello!";
+ });
+ */
+
+ /*
+//prendre un paramètre "title" constitué uniquement de lettres, et l'afficher
+Route::get('/{title}', function ($title) {
+    return $title;
+ })->where("title",'[A-Za-z]+');
+*/
+
+/*
+//Appel à la vue
+Route::get('/', function () {
+    return view('test');
+});
+*/
