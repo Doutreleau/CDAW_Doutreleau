@@ -1,0 +1,1 @@
+alert("Number 1");
