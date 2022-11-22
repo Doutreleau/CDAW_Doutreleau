@@ -41,7 +41,7 @@ class PokemonSeeder extends Seeder
             foreach($pokemonPage->types as $type){
                 foreach($type->type as $energyType){
 
-                    if($energyType[0] != "h"){
+                    if($energyType[0] != "h"){ //ie : it is not the url
                         $pokemonEnergy = $energyType;
                     }                
                 }
