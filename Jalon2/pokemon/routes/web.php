@@ -13,8 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/pokemons','App\Http\controllers\listePokemonsController@index');
+Route::get('/','App\Http\controllers\listePokemonsController@welcome');
+
 //Controller : afficher un paramètre
-Route::get('/{param}','App\Http\controllers\listePokemonsController@show');
+//Route::get('/{param}','App\Http\controllers\listePokemonsController@show');
+
 
 /*
 Route::get('/', function () {
