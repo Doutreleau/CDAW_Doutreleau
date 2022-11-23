@@ -3,7 +3,9 @@
 var count = 3;
 function modify(e)
 {
-    e.currentTarget.previousSibling.previousSibling.textContent = 'Chaine modifiée';
+    let parent = e.currentTarget.parentNode;
+    const collection = parent.children;
+    collection[1].textContent = "Chaine modifiée";
     alert(e.type +" on modify for "+ e.currentTarget.parentNode.id+" !");
 }
 

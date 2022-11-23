@@ -1,24 +1,18 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", function(){
 
-    var count = 3;
-    var userOfCommentChanged = null;
+    var count = 3;//used to know how many users there are
+    var userOfCommentChanged = null; //used to know which comment is changed when a user clicks on "modify"
     function modify(e)
     {
         //change the textArea
-        let valToCheck = e.currentTarget.previousSibling.previousSibling.textContent; //récupère la valeur du texte dans le premier input
+        let valToCheck = e.currentTarget.previousSibling.previousSibling.textContent; 
         let formTextArea = document.getElementById("formTextArea");
         formTextArea.value = valToCheck;
 
-        //change the text
-        /*
-        let parent = e.currentTarget.parentNode;
-        const collection = parent.children;
-        collection[1].textContent = "Chaine modifiée";
-        */
         userOfCommentChanged = e.currentTarget.parentNode;
 
-        document.getElementById("submit").addEventListener("click", function(f){
+        document.getElementById("form").onsubmit = function() {
             let formTextArea = document.getElementById("formTextArea");
             if(!formTextArea.value.trim().length){
                 alert("Please enter the remarks");
@@ -28,27 +22,19 @@ document.addEventListener("DOMContentLoaded", function(){
                 userOfCommentChanged.children[1].textContent = formTextArea.value;
                 formTextArea.value = "";
             }
-        })
+            return false;//without this line, clicking on "Submit" resets the page back to the original
+        }
 
         alert(e.type +" on modify for "+ e.currentTarget.parentNode.id+" !");
     }
+
 
     function deleter(e)
     {
         e.currentTarget.parentNode.remove();
         alert(e.type +" on remove for "+ e.currentTarget.parentNode.id+" !");
     }
-/*
-    function verify(){
-        let formTextArea = document.getElementById("formTextArea");
-        if(!formTextArea.value.trim().length){
-            alert("Please enter the remarks");
-        }
-        else{
-            alert("Comment of "+userOfCommentChanged.id+" changed");
-            userOfCommentChanged.children[1].textContent = "e";
-        }
-    }*/
+
     
     document.getElementById("addNew").addEventListener("click", function(e){
         alert(e.type +" on add !");

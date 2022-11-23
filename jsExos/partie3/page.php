@@ -27,10 +27,11 @@
             </div>
         </div>
         <button id="addNew">Add new Comment</button>
-        
+        <form id="form">
             <textarea id ="formTextArea"></textarea>
             <br>
-            <button id="submit">Submit</button>
+            <input type="submit" value="Submit" id="submit">
+        </form>
         
     </body>
 </html>
