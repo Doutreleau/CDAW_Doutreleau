@@ -23,7 +23,21 @@
     <div class='userPageRect1'></div>
     <div class='userPageRect2'></div>
     <div class='userPageLevel'>Level : {{ intdiv(auth()->user()->nb_victories,10) }} </div>
-    <div class='userPageEnergies'>Energies mastered : </div>
+    <a class='userPageEnergies' href="#">Energies mastered :
+        <?php
+        $userId = auth()->user()->id;
+        $energies = DB::table("energy_mastered")->get(["id_user", "id_energy"])->where("id_user","=",$userId);
+        foreach($energies as $energy){
+            
+            $energiesNames = DB::table("energy")->get(["id", "name"])->where("id","=",$energy->id_energy);
+            foreach($energiesNames as $energyName){
+                echo $energyName->name;
+                echo "\r\n";
+            }
+        
+        }
+        ?></a>
+        
     <a class='userPageLogout'  href="/logout">Log out</a>
     <img class='userPageLogoutImage' src = 'assets/img/logout2.png'></img>
 

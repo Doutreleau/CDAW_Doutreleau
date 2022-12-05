@@ -32,8 +32,7 @@ class RegistrationController extends Controller
         DB::table('energy_mastered')->insert([
             'id_user' => $idUser,
             'id_energy' => $idRandomEnergyGiven
-            ]);
-            
+            ]);         
         
         auth()->login($user);
         
