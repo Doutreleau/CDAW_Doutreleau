@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePokemonTable2 extends Migration
+class CreatePokemonTable4 extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreatePokemonTable2 extends Migration
         Schema::create('pokemon_table', function (Blueprint $table) {
             $table->integer('id');
             $table->string('name');
-            $table->string('energy');
+            $table->integer('energy');
             $table->integer('pv_max');
             $table->integer('level');
             $table->string('path');

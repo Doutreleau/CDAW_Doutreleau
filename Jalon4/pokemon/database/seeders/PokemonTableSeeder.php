@@ -15,6 +15,13 @@ class PokemonTableSeeder extends Seeder
      */
     public function run()
     {
+        /*
+        $p = DB::table("energy")->get(["id", "name"])->where("name","=","bug");
+        foreach ($p as $item) {
+            echo $item->id;
+            echo '            ';
+        }
+        */
         function showPokemonsOfOnePage($page){
             $page = json_decode($page);
             foreach($page->results as $pokemon){
@@ -47,6 +54,10 @@ class PokemonTableSeeder extends Seeder
 
                         if($energyType[0] != "h"){ //ie : it is not the url
                             $pokemonEnergy = $energyType;
+                            $energiesFromTable = DB::table("energy")->get(["id", "name"])->where("name","=",$pokemonEnergy);
+                            foreach($energiesFromTable as $energyFromTable){
+                                $pokemonEnergy = $energyFromTable->id;
+                            }
                         }                 
                     }
                 }

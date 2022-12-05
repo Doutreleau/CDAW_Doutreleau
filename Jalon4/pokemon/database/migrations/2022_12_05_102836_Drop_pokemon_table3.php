@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropUsers2 extends Migration
+class DropPokemonTable3 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class DropUsers2 extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pokemon_table');
+        
         
     }
 
@@ -24,13 +25,18 @@ class DropUsers2 extends Migration
      */
     public function down()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pokemon_table', function (Blueprint $table) {
             $table->integer('id');
             $table->string('name');
-            $table->string('email');
-            $table->string('password');
-            $table->integer('nb_victories');
+            $table->integer('energy');
+            $table->integer('pv_max');
+            $table->integer('level');
+            $table->string('path');
+            $table->integer('scoreNormalAttack');
+            $table->integer('scoreSpecialAttack');
+            $table->integer('scoreSpecialDefense');
             $table->timestamps();
         });
+       
     }
 }
