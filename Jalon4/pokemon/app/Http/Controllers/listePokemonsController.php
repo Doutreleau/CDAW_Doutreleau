@@ -29,4 +29,8 @@ class listePokemonsController extends Controller
  
         return view('listePokemons', ['pokemons' => $pokemons]);
     }
+
+    public function parametersPage(){
+        return view('parametersPage');
+    }
 }

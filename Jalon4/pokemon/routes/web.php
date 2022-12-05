@@ -18,6 +18,14 @@ Route::get('/pokemons','App\Http\controllers\listePokemonsController@index');
 Route::get('/','App\Http\controllers\listePokemonsController@welcome');
 Route::get('/user','App\Http\controllers\listePokemonsController@userPage');
 
+Route::get('/param','App\Http\controllers\listePokemonsController@parametersPage');
+Route::get('/namechange','App\Http\controllers\ParametersChange@getChangeName');
+Route::post('/namechange','App\Http\controllers\ParametersChange@changeName');
+Route::get('/mailchange','App\Http\controllers\ParametersChange@getChangeMail');
+Route::post('/mailchange','App\Http\controllers\ParametersChange@changeMail');
+Route::get('/passwordchange','App\Http\controllers\ParametersChange@getChangePassword');
+Route::post('/passwordchange','App\Http\controllers\ParametersChange@changePassword');
+
 Route::get('/register', 'App\Http\controllers\RegistrationController@create');
 Route::post('register', 'App\Http\controllers\RegistrationController@store');
 
