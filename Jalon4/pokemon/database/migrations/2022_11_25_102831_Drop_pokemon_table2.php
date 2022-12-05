@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropPokemonTable2 extends Migration
+class DropPokemonTable21 extends Migration
 {
     /**
      * Run the migrations.
