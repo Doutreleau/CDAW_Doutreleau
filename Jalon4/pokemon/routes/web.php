@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/pokemons','App\Http\controllers\listePokemonsController@index');
 Route::get('/','App\Http\controllers\listePokemonsController@welcome');
+Route::get('/user','App\Http\controllers\listePokemonsController@userPage');
 
 Route::get('/register', 'App\Http\controllers\RegistrationController@create');
 Route::post('register', 'App\Http\controllers\RegistrationController@store');

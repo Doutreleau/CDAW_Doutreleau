@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\DB;
 class listePokemonsController extends Controller
 {
     public function welcome(){
-        return view('template');
+        return view('welcomePage');
+    }
+
+    //returns the page of the user
+    public function userPage(){
+        return view('userPage');
     }
 
     /**

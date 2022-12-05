@@ -24,6 +24,6 @@ class RegistrationController extends Controller
         
         auth()->login($user);
         
-        return redirect()->to('/pokemons');
+        return redirect()->to('/user');
     }
 }

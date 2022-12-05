@@ -19,7 +19,7 @@ class SessionsController extends Controller
             ]);
         }
         
-        return redirect()->to('/pokemons');
+        return redirect()->to('/user');
     }
     
     public function destroy()
