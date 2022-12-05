@@ -35,7 +35,12 @@
             <td> <?php echo $pokemon->id; ?> </td>
             <td> <?php echo $pokemon->name; ?> </td>
             <td> <img src=<?php echo $pokemon->path; ?> /> </td>
-            <td> <?php echo $pokemon->energy; ?> </td>
+            <td> <?php 
+            $energies = DB::table("energy")->get(["id", "name"])->where("id","=",$pokemon->energy);
+            foreach($energies as $energy){
+                echo $energy->name;
+            }
+             ?> </td>
             <td> <?php echo $pokemon->pv_max; ?> </td>
             <td> <?php echo $pokemon->level; ?> </td>
             <td> <?php echo $pokemon->scoreNormalAttack; ?> </td>
