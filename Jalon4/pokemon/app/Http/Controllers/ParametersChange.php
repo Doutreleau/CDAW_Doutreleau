@@ -24,12 +24,12 @@ class ParametersChange extends Controller
         }
         else{
             echo '<script>alert("The password is incorrect")</script>';
-            return view('changeName');
+            return view('/parameters/changeName');
         }
     }
 
     public function getChangeName(){
-        return view('changeName');
+        return view('/parameters/changeName');
     }
 
 
@@ -49,12 +49,12 @@ class ParametersChange extends Controller
         }
         else{
             echo '<script>alert("The password is incorrect")</script>';
-            return view('changeMail');
+            return view('/parameters/changeMail');
         }
     }
 
     public function getChangeMail(){
-        return view('changeMail');
+        return view('/parameters/changeMail');
     }
 
     public function changePassword(Request $request){
@@ -72,12 +72,12 @@ class ParametersChange extends Controller
         }
         else{
             echo '<script>alert("The password is incorrect")</script>';
-            return view('changePassword');
+            return view('/parameters/changePassword');
         }
     }
 
     public function getChangePassword(){
-        return view('changePassword');
+        return view('/parameters/changePassword');
     }
 
 }

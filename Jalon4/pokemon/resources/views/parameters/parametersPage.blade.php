@@ -7,10 +7,9 @@
 </head>
 <body>
 
-    <a href = "/namechange"> Change Name <a>
-    <a href = "/mailchange"> Change Mail <a>
-    <a href = "/passwordchange"> Change Password <a>
-
+    <a href = "/namechange"> Change Name </a>
+    <a href = "/mailchange"> Change Mail </a>
+    <a href = "/passwordchange"> Change Password </a> 
     
 </body>
 </html>

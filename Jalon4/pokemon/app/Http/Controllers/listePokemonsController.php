@@ -31,6 +31,6 @@ class listePokemonsController extends Controller
     }
 
     public function parametersPage(){
-        return view('parametersPage');
+        return view('/parameters/parametersPage');
     }
 }

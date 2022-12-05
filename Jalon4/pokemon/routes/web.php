@@ -26,6 +26,10 @@ Route::post('/mailchange','App\Http\controllers\ParametersChange@changeMail');
 Route::get('/passwordchange','App\Http\controllers\ParametersChange@getChangePassword');
 Route::post('/passwordchange','App\Http\controllers\ParametersChange@changePassword');
 
+
+Route::get('/choiceSecondUser','App\Http\controllers\CombatController@choiceSecondUser');
+Route::post('/loginSecondUser','App\Http\controllers\CombatController@loginSecondUser');
+
 Route::get('/register', 'App\Http\controllers\RegistrationController@create');
 Route::post('register', 'App\Http\controllers\RegistrationController@store');
 

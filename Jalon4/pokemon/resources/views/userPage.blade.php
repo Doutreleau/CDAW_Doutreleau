@@ -45,7 +45,7 @@
     
     <img class='userPageBattleShape' src = 'assets/img/shape2.png'>></img>
     <img class='userPageBattleImage'  src = 'assets/img/battle.png'></img>
-    <div class='userPageBattleText'> Start a battle</div>
+    <a class='userPageBattleText' href="/choiceSecondUser"> Start a battle</a>
     
     @if( auth()->check() )
         <li class="nav-item">
