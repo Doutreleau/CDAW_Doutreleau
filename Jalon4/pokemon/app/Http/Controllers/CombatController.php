@@ -17,8 +17,10 @@ class CombatController extends Controller
         $mailUser2 = $request ->email;
         $users = DB::table('users')->get()->where("email","=",$mailUser2);
 
+        $correctPassword = false;
         foreach($users as $user){
             if (password_verify($request->password, $user->password)) {
+                $correctPassword = true;
                 $randomFirstPlayer = random_int(1,2);
                 if($randomFirstPlayer==1){
                     $idUser1 = auth()->user()->id;
@@ -30,13 +32,22 @@ class CombatController extends Controller
 
                 }
 
+                $mode = $request -> mode;
                 DB::table('combat')->insert([
-                    'mode'=>'manuel et tour par tour', //CAREFUL ! THIS WILL HAVE TO BE CHANGED IN THE FUTURE TO ADD THE OTHER MODES!!!
+                    'mode'=> $mode,
                     'id_user1'=>$idUser1,
                     'id_user2'=>$idUser2         
                 ]);
-            }
+                $pokemons = DB::table('pokemon_table')->get();
+                $max_id = DB::table("combat")->get(["id"])->max('id');
+                $idUser1 = DB::table("combat")->get(["id_user1"])->where("id","=",$max_id);
                 
+                return view('/combat/choiceFirstPokemon', ['pokemons' => $pokemons,'idUser1' => $idUser1]);
+            }                
+        }
+        if (!$correctPassword){
+            echo '<script>alert("The password is incorrect")</script>';
+            return view('/combat/choiceSecondUser');
         }
     }
 }

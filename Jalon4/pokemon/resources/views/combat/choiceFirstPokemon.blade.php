@@ -8,10 +8,12 @@
     
         <script> $(document).ready( function () {   
                 $('#Pokedex').DataTable();
-        } );</script>
+        } );
+        
+        </script>
  </head>
 
-    <h3>Pokédex</h3>
+    <h5> Click on a pokemon to choose it </h5>
     <table id="Pokedex", class="display">
         <thead>
         <tr>
@@ -29,8 +31,20 @@
         <tbody>
 
         <?php 
+        echo $idUser1;
         foreach ($pokemons as $pokemon) {
+
+
+            //$max_id = DB::table("combat")->query('SELECT MAX(id) AS `maxid` FROM `combat')->row()->maxid;
+            
+
+
+            $energies = DB::table("energy")->get(["id", "name"])->where("id","=",$pokemon->energy);
+            foreach($energies as $energy){
+                if (!strcmp($energy->name, "bug")){
             ?>
+
+            
            <tr>
             <td> <?php echo $pokemon->id; ?> </td>
             <td> <?php echo $pokemon->name; ?> </td>
@@ -48,8 +62,23 @@
             <td> <?php echo $pokemon->scoreSpecialDefense; ?> </td>
             </tr>
             <?php
+                }
+            }
         }        
         ?>
-        @yield('content')
+        
         </tbody>
 
+        <script>
+    $(document).ready(function()
+    {
+    $('#name').click( function () {
+      alert("test") ;
+    });
+    });
+
+
+    $("#Pokedex").delegate("td", "click", function() {
+        alert(this.textContent);
+    });
+    </script>

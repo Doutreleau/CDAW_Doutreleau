@@ -15,7 +15,14 @@ class listePokemonsController extends Controller
 
     //returns the page of the user
     public function userPage(){
-        return view('userPage');
+        $userId = auth()->user()->id;
+        $energies = DB::table("energy_mastered")->get(["id_user", "id_energy"])->where("id_user","=",$userId);
+        foreach($energies as $energy){
+            
+            $energiesNames = DB::table("energy")->get(["id", "name"])->where("id","=",$energy->id_energy);
+
+        return view('userPage', ['energiesNames' => $energiesNames]);
+        }
     }
 
     /**

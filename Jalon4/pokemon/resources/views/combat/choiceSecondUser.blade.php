@@ -25,8 +25,19 @@
         <div class="form-group">
             <button style="cursor:pointer; position: absolute; top:750px; left: 32%" type="submit" class="btn btn-primary">Login</button>
         </div>
+
+        <div class="form-group">
+            <select name="mode" onChange="combo(this, 'box)">
+            <option value="manuel">Manuel et tour par tour</option>
+            <option value = "aleatoire automatique">Aléatoire automatique</option>
+            <option value = "aleatoire tour par tour">Aléatoire et tour par tour</option>
+            </select>
+        </div>
         @include('partials.formerrors')
     </form>
+
+
+    
 
 
  
