@@ -31,17 +31,16 @@
         <tbody>
 
         <?php 
-        echo $idUser1;
+        foreach($listEnergiesUser1 as$e){
+            echo $e;
+        }
         foreach ($pokemons as $pokemon) {
-
-
-            //$max_id = DB::table("combat")->query('SELECT MAX(id) AS `maxid` FROM `combat')->row()->maxid;
-            
-
 
             $energies = DB::table("energy")->get(["id", "name"])->where("id","=",$pokemon->energy);
             foreach($energies as $energy){
-                if (!strcmp($energy->name, "bug")){
+                foreach($listEnergiesUser1 as $energyUser1){
+
+                    if (strcmp($energy->name, $energyUser1)==0){
             ?>
 
             
@@ -62,6 +61,7 @@
             <td> <?php echo $pokemon->scoreSpecialDefense; ?> </td>
             </tr>
             <?php
+                    }
                 }
             }
         }        
@@ -82,3 +82,4 @@
         alert(this.textContent);
     });
     </script>
+    
