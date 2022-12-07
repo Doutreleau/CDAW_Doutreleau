@@ -31,7 +31,7 @@ class CombatController extends Controller
                     $idUser1 = $user->id;
 
                 }
-
+                
                 $mode = $request -> mode;
                 DB::table('combat')->insert([
                     'mode'=> $mode,
@@ -40,8 +40,8 @@ class CombatController extends Controller
                 ]);
                 $pokemons = DB::table('pokemon_table')->get();
                 $max_id = DB::table("combat")->get(["id"])->max('id');
-                $idUser1 = DB::table("combat")->where("id","=",$max_id)->get(["id_user1"]);
-                foreach ($idUser1 as $id1){
+                $idUser1s = DB::table("combat")->where("id","=",$max_id)->get(["id_user1"]);
+                foreach ($idUser1s as $id1){
                     $id=$id1->id_user1;
                 }
                 $listEnergiesUser1 = array();
@@ -52,7 +52,11 @@ class CombatController extends Controller
                         array_push($listEnergiesUser1,$energyUser1Name->name);
                     }
                 }
-                return view('/combat/choiceFirstPokemon', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser1]);
+                $user1Names = DB::table("users")->where("id","=",$idUser1)->get(["name"]);
+                foreach($user1Names as $user1Name){
+                    $user1 = $user1Name->name;
+                }                
+                return view('/combat/choiceFirstPokemon', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser1,'user1Name'=>$user1]);
             }                
         }
         if (!$correctPassword){

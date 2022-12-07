@@ -31,9 +31,7 @@
         <tbody>
 
         <?php 
-        foreach($listEnergiesUser1 as$e){
-            echo $e;
-        }
+        echo "The first user is ".$user1Name.", please click on the pokemon you want to choose";
         foreach ($pokemons as $pokemon) {
 
             $energies = DB::table("energy")->get(["id", "name"])->where("id","=",$pokemon->energy);
