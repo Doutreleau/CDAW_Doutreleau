@@ -13,7 +13,8 @@
         </script>
  </head>
 
-    <h5> Click on a pokemon to choose it </h5>
+    @yield('content')
+
     <table id="Pokedex", class="display">
         <thead>
         <tr>
@@ -68,12 +69,7 @@
         </tbody>
 
         <script>
-    $(document).ready(function()
-    {
-    $('#name').click( function () {
-      alert("test") ;
-    });
-    });
+
 
 
     $("#Pokedex").delegate("td", "click", function() {

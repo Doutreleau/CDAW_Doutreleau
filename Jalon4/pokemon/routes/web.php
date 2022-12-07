@@ -29,6 +29,8 @@ Route::post('/passwordchange','App\Http\controllers\ParametersChange@changePassw
 
 Route::get('/choiceSecondUser','App\Http\controllers\CombatController@choiceSecondUser');
 Route::post('/loginSecondUser','App\Http\controllers\CombatController@loginSecondUser');
+Route::post('/choicePokemonUser1','App\Http\controllers\CombatController@choicePokemonUser1');
+Route::post('/choicePokemonUser2','App\Http\controllers\CombatController@choicePokemonUser2');
 
 Route::get('/register', 'App\Http\controllers\RegistrationController@create');
 Route::post('register', 'App\Http\controllers\RegistrationController@store');
