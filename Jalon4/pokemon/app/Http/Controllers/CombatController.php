@@ -311,6 +311,7 @@ class CombatController extends Controller
 
     public function doRound(Request $request){
         if((isset($_POST['Attaque_speciale']))) {
+            //getting the useful information
             $poke1Name = $request->poke1[0];
             $poke1ScoreSpecialAttack = $request->poke1ScoreSpecialAttack[0];
             $poke1Pv = $request->poke1Pv[0];
@@ -319,14 +320,43 @@ class CombatController extends Controller
             $poke2ScoreSpecialAttack = $request->poke2ScoreSpecialAttack[0];
             $poke2Pv = $request->poke2Pv[0];
 
+            
+
+            $max_id = DB::table("combat")->get(["id"])->max('id');
+
             $newPoke2Pv = $poke2Pv - $poke1ScoreSpecialAttack;
             if ($newPoke2Pv<=0){
-                // plus, if this poke is the last one, the fight ends
-                // how to do that? check if this poke is one of the last poke
+                $newPoke2Pv=0;
                 echo "The attacked pokemon does not have any pv left";
+                $lastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon13','id_pokemon23']);
+                //getting the id of the attacked pokemon
+                $poke2Ids = DB::table('pokemon_table')->where("name","=",$poke2Name)->get(['id']);
+                foreach($poke2Ids as$poke2Id){
+                    $poke2Id = $poke2Id->id;
+                }
+                foreach($lastPokemons as $pokemon){
+                    if(strcmp($poke2Id,$pokemon->id_pokemon13) || strcmp($poke2Id,$pokemon->id_pokemon23)){
+                        echo "end of the game";
+                    }
+                }
             }
-            //DONT FORGET TO CREATE A 'TOUR' TABLE!!!
+
+            $types = DB::table('types_combat')->where("type","=","attaque speciale")->get(['id']);
+            foreach($types as $type){
+                $special_attack = $type->id;
+            }
+            DB::table('tour')->insert([
+                'id_combat'=>$max_id,
+                'length'=>30,
+                'id_type'=>$special_attack,
+                'poke1Name'=>$poke1Name,  
+                'poke2Name'=>$poke2Name, 
+                'poke1Pv'=>$poke1Pv,
+                'poke2Pv'=>$newPoke2Pv
+            ]);
         }
+
+
         else if((isset($_POST['Attaque_normale']))) {
             $poke1Name = $request->poke1[0];
             $poke1Pv = $request->poke1Pv[0];
@@ -336,15 +366,50 @@ class CombatController extends Controller
             $poke2Pv = $request->poke2Pv[0];
             $poke2ScoreNormalAttack = $request->poke2ScoreNormalAttack[0];
 
+            $max_id = DB::table("combat")->get(["id"])->max('id');
+            
             $newPoke2Pv = $poke2Pv - $poke1ScoreNormalAttack;
-            if ($newPoke2Pv<0){
+            if ($newPoke2Pv<=0){
+                
+                $newPoke2Pv=0;
                 echo "The attacked pokemon does not have any pv left";
+                $max_id = DB::table("combat")->get(["id"])->max('id');
+                $lastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon13','id_pokemon23']);
+                //getting the id of the attacked pokemon
+                $poke2Ids = DB::table('pokemon_table')->where("name","=",$poke2Name)->get(['id']);
+                foreach($poke2Ids as$poke2Id){
+                    $poke2Id = $poke2Id->id;
+                }
+                foreach($lastPokemons as $pokemon){
+                    if(strcmp($poke2Id,$pokemon->id_pokemon13) || strcmp($poke2Id,$pokemon->id_pokemon23)){
+                        echo "end of the game";
+                    }
+                }
             }
+
+            $types = DB::table('types_combat')->where("type","=","attaque normale")->get(['id']);
+            foreach($types as $type){
+                $normal_attack = $type->id;
+            }
+            DB::table('tour')->insert([
+                'id_combat'=>$max_id,
+                'length'=>30,
+                'id_type'=>$normal_attack,
+                'poke1Name'=>$poke1Name,  
+                'poke2Name'=>$poke2Name, 
+                'poke1Pv'=>$poke1Pv,
+                'poke2Pv'=>$newPoke2Pv
+            ]);
         }
+
+        
         else if((isset($_POST['Defense_speciale']))) {
             $poke1Name = $request->poke1[0];
             $poke1Pv = $request->poke1Pv[0];
             $poke1ScoreSpecialDefense = $request->poke1ScoreSpecialDefense[0];
+            
+            $poke2Name = $request->poke2[0];
+            $poke2Pv = $request->poke2Pv[0];
 
             $poke1PvMax1 = DB::table('pokemon_table')->where("name","=",$poke1Name)->get(['pv_max']);
             foreach($poke1PvMax1 as $pv){
@@ -355,6 +420,22 @@ class CombatController extends Controller
             if($newPoke1Pv>$poke1PvMax){
                 $newPoke1Pv = $poke1PvMax;
             }
+
+
+            $max_id = DB::table("combat")->get(["id"])->max('id');
+            $types = DB::table('types_combat')->where("type","=","defense speciale")->get(['id']);
+            foreach($types as $type){
+                $defense_speciale = $type->id;
+            }
+            DB::table('tour')->insert([
+                'id_combat'=>$max_id,
+                'length'=>30,
+                'id_type'=>$defense_speciale,
+                'poke1Name'=>$poke1Name,  
+                'poke2Name'=>$poke2Name, 
+                'poke1Pv'=>$newPoke1Pv,
+                'poke2Pv'=>$poke2Pv
+            ]);
 
         }
     }
