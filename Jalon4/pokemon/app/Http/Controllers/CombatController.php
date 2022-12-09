@@ -321,6 +321,8 @@ class CombatController extends Controller
 
             $newPoke2Pv = $poke2Pv - $poke1ScoreSpecialAttack;
             if ($newPoke2Pv<=0){
+                // plus, if this poke is the last one, the fight ends
+                // how to do that? check if this poke is one of the last poke
                 echo "The attacked pokemon does not have any pv left";
             }
             //DONT FORGET TO CREATE A 'TOUR' TABLE!!!
@@ -354,7 +356,6 @@ class CombatController extends Controller
                 $newPoke1Pv = $poke1PvMax;
             }
 
-            //Cautious ! a pokemon cannot have more pv than pv_max!!! (so you'll have to connect to the DB)
         }
     }
 }
