@@ -21,7 +21,7 @@
         {{ csrf_field() }}
         <input type="text" placeholder="Enter the name of the pokemon you choose" name="pokemonName">
         <div class="form-group">
-            <button style="cursor:pointer;" type="submit" class="btn btn-primary">Login</button>
+            <button style="cursor:pointer;" type="submit" class="btn btn-primary">Choose pokemon</button>
         </div>
     </form>
 
@@ -42,7 +42,7 @@
         <tbody>
 
         <?php 
-        echo "The first user is ".$user1Name.", please click on the pokemon you want to choose";
+        echo "The current user is ".$user1Name.", please click on the pokemon you want to choose";
         foreach ($pokemons as $pokemon) {
 
             $energies = DB::table("energy")->get(["id", "name"])->where("id","=",$pokemon->energy);

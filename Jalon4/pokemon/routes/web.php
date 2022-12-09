@@ -31,6 +31,7 @@ Route::get('/choiceSecondUser','App\Http\controllers\CombatController@choiceSeco
 Route::post('/loginSecondUser','App\Http\controllers\CombatController@loginSecondUser');
 Route::post('/choicePokemonUser1','App\Http\controllers\CombatController@choicePokemonUser1');
 Route::post('/choicePokemonUser2','App\Http\controllers\CombatController@choicePokemonUser2');
+Route::post('/doRound','App\Http\controllers\CombatController@doRound');
 
 Route::get('/register', 'App\Http\controllers\RegistrationController@create');
 Route::post('register', 'App\Http\controllers\RegistrationController@store');

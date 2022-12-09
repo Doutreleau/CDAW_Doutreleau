@@ -21,9 +21,8 @@
         {{ csrf_field() }}
         <input type="text" placeholder="Enter the name of the pokemon you choose" name="pokemonName">
         <div class="form-group">
-            <button style="cursor:pointer;" type="submit" class="btn btn-primary">Login</button>
+            <button style="cursor:pointer;" type="submit" class="btn btn-primary">Choose pokemon</button>
         </div>
-        <h8 name="countNumberOfPokemonsSelected"> </h8>
     </form>
 
     <table id="Pokedex", class="display">

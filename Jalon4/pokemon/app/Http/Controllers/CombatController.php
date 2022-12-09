@@ -13,6 +13,10 @@ class CombatController extends Controller
         return view("/combat/choiceSecondUser");
     }
 
+    /*  
+    Checks if the second user exists and has entered the right password.
+    If it is the case, it redirects to the page to choose pokemons.
+    */
     public function loginSecondUser(Request $request){
         $mailUser2 = $request ->email;
         $users = DB::table('users')->get()->where("email","=",$mailUser2);
@@ -21,6 +25,9 @@ class CombatController extends Controller
         foreach($users as $user){
             if (password_verify($request->password, $user->password)) {
                 $correctPassword = true;
+
+                //randomly choose which player is the first one
+                //by convention, in the database, id_user1 always represents the player who will play first
                 $randomFirstPlayer = random_int(1,2);
                 if($randomFirstPlayer==1){
                     $idUser1 = auth()->user()->id;
@@ -29,7 +36,6 @@ class CombatController extends Controller
                 else{
                     $idUser2 = auth()->user()->id;
                     $idUser1 = $user->id;
-
                 }
                 
                 $mode = $request -> mode;
@@ -38,6 +44,9 @@ class CombatController extends Controller
                     'id_user1'=>$idUser1,
                     'id_user2'=>$idUser2         
                 ]);
+
+
+                //creation of the 'participe' instance, which will be completed later
                 $id_combat = DB::table('combat')->get(['id'])->max('id');
                 DB::table('participe')->insert([
                     'id_combat' => $id_combat,
@@ -49,8 +58,10 @@ class CombatController extends Controller
                     'id_pokemon23' => 0,
                 ]);
 
+                //get the variables needed to render the page of choice of a pokemon (ie the energies and name of the first player)
                 $pokemons = DB::table('pokemon_table')->get();
                 $max_id = DB::table("combat")->get(["id"])->max('id');
+                
                 $idUser1s = DB::table("combat")->where("id","=",$max_id)->get(["id_user1"]);
                 foreach ($idUser1s as $id1){
                     $id=$id1->id_user1;
@@ -76,9 +87,11 @@ class CombatController extends Controller
         }
     }
 
-
+    /*
+    This function updates the 'participe' table with the chosen pokemon, and redirects to the choice of the next pokemon.
+    If the chosen pokemon is invalid (the user made a typo), the page is reloaded.
+    */
     public function choicePokemonUser2(Request $request){
-        echo $request->pokemonName;
         $selectedPokemon = DB::table('pokemon_table')->where("name","=",$request->pokemonName)->get(['name']);
         foreach($selectedPokemon as $pokemon){
             
@@ -102,7 +115,6 @@ class CombatController extends Controller
                 }
 
                 if($idPokemon11==0){
-                    echo "first poke";
                     DB::table('participe')->where("id_combat","=",$max_id)->update(["id_pokemon11"=>$id->id]);
                 }         
                 else if($idPokemon12==0){
@@ -113,7 +125,7 @@ class CombatController extends Controller
                 }   
             }
             
-
+            //get the variables needed to render the page of choice of a pokemon (ie the energies and name of the first player)
             $pokemons = DB::table('pokemon_table')->get();
             $max_id = DB::table("combat")->get(["id"])->max('id');
             $idUser2s = DB::table("combat")->where("id","=",$max_id)->get(["id_user2"]);
@@ -134,6 +146,8 @@ class CombatController extends Controller
             }                
             return view('/combat/choicePokemonUser2', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser2,'user1Name'=>$user2]);
         }  
+        
+        //in case the pokemon wasn't found (it the user made a typo), the page is reloaded.
         echo "the name of the pokemon is not correct";
         $pokemons = DB::table('pokemon_table')->get();
         $max_id = DB::table("combat")->get(["id"])->max('id');
@@ -158,17 +172,23 @@ class CombatController extends Controller
         
     }
 
+    /*
+    This function updates the 'participe' table with the chosen pokemon, and redirects to the choice of the next pokemon.
+    If the chosen pokemon is invalid (the user made a typo), the page is reloaded.
+    When the last pokemon has been chosen, the function redirects to the first fight.
+    */
     public function choicePokemonUser1(Request $request){
-        echo $request->pokemonName;
         $selectedPokemon = DB::table('pokemon_table')->where("name","=",$request->pokemonName)->get(['name']);
         foreach($selectedPokemon as $pokemon){
             $pokemonId = DB::table('pokemon_table')->where("name","=",$pokemon->name)->get(['id']);            
             $max_id = DB::table("combat")->get(["id"])->max('id');
             
+            $endOfChoiceOfPokemons = false;
             foreach($pokemonId as $id){
                 $idsPokemon21 = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon21']);
                 foreach($idsPokemon21 as $idPoke21){
                     $idPokemon21 = $idPoke21->id_pokemon21;
+                    $endOfChoiceOfPokemons = true;// CAUTION : THIS HAS TO GO, IT S JUST HERE FOR TESTING!!!!
                       
                 }
                 $idsPokemon22 = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon22']);
@@ -188,31 +208,83 @@ class CombatController extends Controller
                 }   
                 else if($idPokemon23==0){
                     DB::table('participe')->where("id_combat","=",$max_id)->update(["id_pokemon23"=>$id->id]);
+                    $endOfChoiceOfPokemons = true;
                 }   
             }
-            
 
+            //get the variables needed to render the page of choice of a pokemon (ie the energies and name of the first player)
             $pokemons = DB::table('pokemon_table')->get();
             $max_id = DB::table("combat")->get(["id"])->max('id');
             $idUser1s = DB::table("combat")->where("id","=",$max_id)->get(["id_user1"]);
             foreach ($idUser1s as $id1){
-                $id=$id1->id_user1;
+                $idUser1=$id1->id_user1;
             }
             $listEnergiesUser1 = array();
-            $energiesUser1 = DB::table("energy_mastered")->where("id_user","=",$id)->get(["id_energy"]);
+            $energiesUser1 = DB::table("energy_mastered")->where("id_user","=",$idUser1)->get(["id_energy"]);
             foreach($energiesUser1 as $energyUser1){
                 $energiesUser1Name = DB::table("energy")->where("id","=",$energyUser1->id_energy)->get(["name"]);
                 foreach ($energiesUser1Name as $energyUser1Name){
                     array_push($listEnergiesUser1,$energyUser1Name->name);
                 }
             }
-            $user1Names = DB::table("users")->where("id","=",$id)->get(["name"]);
+            $user1Names = DB::table("users")->where("id","=",$idUser1)->get(["name"]);
             foreach($user1Names as $user1Name){
                 $user1 = $user1Name->name;
-            }                
-            return view('/combat/choicePokemonUser1', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser1,'user1Name'=>$user1]);
+            } 
+            if($endOfChoiceOfPokemons){
+                //get all the parameters needed to render the page of fights 
+                $max_id = DB::table("combat")->get(["id"])->max('id');
+                $idUser1s = DB::table("combat")->where("id","=",$max_id)->get(["id_user1"]);
+                foreach ($idUser1s as $id1){
+                    $idUser1=$id1->id_user1;
+                }
+                $user1Names = DB::table("users")->where("id","=",$idUser1)->get(["name"]);
+                foreach($user1Names as $user1Name){
+                    $user1 = $user1Name->name;
+                } 
+
+                $idUser2s = DB::table("combat")->where("id","=",$max_id)->get(["id_user2"]);
+                foreach ($idUser2s as $id2){
+                    $idUser2=$id2->id_user2;
+                }
+                $user2Names = DB::table("users")->where("id","=",$idUser2)->get(["name"]);
+                foreach($user2Names as $user2Name){
+                    $user2 = $user2Name->name;
+                }
+
+                $idsPoke = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon11','id_pokemon21']);
+                foreach($idsPoke as $idPoke){
+                    $id_pokemon11 = $idPoke->id_pokemon11;
+                    $id_pokemon21 = $idPoke->id_pokemon21;
+                }
+                $infosPoke11 = DB::table('pokemon_table')->where("id","=",$id_pokemon11)->get(['name','path','scoreNormalAttack','scoreSpecialAttack','scoreSpecialDefense','pv_max']);
+                foreach($infosPoke11 as $infoPoke11){
+                    $poke1Name = $infoPoke11->name;
+                    $poke1Image = $infoPoke11->path;
+                    $poke1ScoreNormalAttack = $infoPoke11->scoreNormalAttack;
+                    $poke1ScoreSpecialAttack = $infoPoke11->scoreSpecialAttack;
+                    $poke1ScoreSpecialDefense = $infoPoke11->scoreSpecialDefense;
+                    $poke1Pv = $infoPoke11->pv_max;
+                }
+                $infosPoke21 = DB::table('pokemon_table')->where("id","=",$id_pokemon21)->get(['name','path','scoreNormalAttack','scoreSpecialAttack','scoreSpecialDefense','pv_max']);
+                foreach($infosPoke21 as $infoPoke21){
+                    $poke2Name = $infoPoke21->name;
+                    $poke2Image = $infoPoke21->path;
+                    $poke2ScoreNormalAttack = $infoPoke21->scoreNormalAttack;
+                    $poke2ScoreSpecialAttack = $infoPoke21->scoreSpecialAttack;
+                    $poke2ScoreSpecialDefense = $infoPoke21->scoreSpecialDefense;
+                    $poke2Pv = $infoPoke21->pv_max;
+                }
+
+
+                return view('/combat/round', ['user1'=>$user1,'user2'=>$user2,'poke1Name'=>$poke1Name,'poke1Image'=>$poke1Image,'poke1ScoreNormalAttack'=>$poke1ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke1Pv'=>$poke1Pv,'poke2Name'=>$poke2Name,'poke2Image'=>$poke2Image,'poke2ScoreNormalAttack'=>$poke2ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke2Pv'=>$poke2Pv]);
+            }   
+            else{            
+                return view('/combat/choicePokemonUser1', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser1,'user1Name'=>$user1]);
+            }
 
         }
+        //in case the pokemon wasn't found (it the user made a typo), the page is reloaded.
         echo "the name of the pokemon is not correct";
         $pokemons = DB::table('pokemon_table')->get();
         $max_id = DB::table("combat")->get(["id"])->max('id');
@@ -234,5 +306,14 @@ class CombatController extends Controller
         }                
         return view('/combat/choicePokemonUser2', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser2,'user1Name'=>$user2]);
                     
+    }
+
+    public function doRound(Request $request){
+        if((isset($_POST['Attaque_speciale']))) {
+            echo "e";
+        }
+        else{
+            echo"nein";
+        }
     }
 }
