@@ -23,6 +23,7 @@
         <div class="form-group">
             <button style="cursor:pointer;" type="submit" class="btn btn-primary">Login</button>
         </div>
+        <h8 name="countNumberOfPokemonsSelected"> </h8>
     </form>
 
     <table id="Pokedex", class="display">
