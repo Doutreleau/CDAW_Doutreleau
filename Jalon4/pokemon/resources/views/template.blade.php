@@ -9,6 +9,10 @@
 <body>
     
     <img class='backgroundImage' src = 'assets/img/background.jpg'></div>
+    
+    
+    
+    
     <div  class='rectangleYellow1'></div>
     <div class='rectangleRed1'></div>
     <div class='rectangleRed2'></div>
@@ -21,11 +25,10 @@
     <a href="/pokemons" class='textPokedex'>Open Pokedex</a>
     <a class='textBattle'>Replay previous battles</a>
     <a class='textStat'>View players statistics</a>
-    <div  class='rectLogo'></div>
-    <img class='logo' src = 'assets/img/logo.png'></div>
-    <a class='motoText'>The website to play with pokemons !</a>
+
+
     
-    @yield('content')
+    @yield('content1')
     
 
     

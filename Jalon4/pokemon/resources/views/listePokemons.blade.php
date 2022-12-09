@@ -1,6 +1,6 @@
+@extends('template')
+@section('content1')
 
-<head>
-    <title> PokemonStop </title>
     <link rel="stylesheet" href="css/styles.css" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">  
@@ -9,8 +9,8 @@
         <script> $(document).ready( function () {   
                 $('#Pokedex').DataTable();
         } );</script>
- </head>
 
+    <div  class='backgroundPokedex'></div>
     <h3>Pokédex</h3>
     <table id="Pokedex", class="display">
         <thead>
@@ -53,3 +53,5 @@
         @yield('content')
         </tbody>
 
+
+        @endsection

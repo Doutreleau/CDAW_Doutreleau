@@ -1,8 +1,8 @@
-@extends('template')
+@extends('templateWithLogo')
 
 @section('content')
 
-    <div  class='rectangleRegisterLogin'></div>
+    <img class='loginPageShape'  src = 'assets/img/shape3.png'></img>
 
     <h2 style =" position: absolute; top:470px; left: 32%" >Register</h2>
 

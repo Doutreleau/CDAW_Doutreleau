@@ -359,9 +359,7 @@ class CombatController extends Controller
                 }
                 foreach($lastPokemons as $pokemon){
                     if(strcmp($poke2Id,$pokemon->id_pokemon13)==0 || strcmp($poke2Id,$pokemon->id_pokemon23)==0){
-                        echo"\r\n";
-                        echo "end of the game";
-                        //MAKE A VIEW FOR THE END OF THE GAME
+                        return view('/combat/end');
                     }
                 }
                 $beforeLastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon11','id_pokemon12','id_pokemon13','id_pokemon21','id_pokemon22','id_pokemon23']);
@@ -456,9 +454,7 @@ class CombatController extends Controller
                 }
                 foreach($lastPokemons as $pokemon){
                     if(strcmp($poke2Id,$pokemon->id_pokemon13)==0 || strcmp($poke2Id,$pokemon->id_pokemon23)==0){
-                        echo"\r\n";
-                        echo "end of the game";
-                        //MAKE A VIEW FOR THE END OF THE GAME
+                        return view('/combat/end');
                     }
                 }
                 $beforeLastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon11','id_pokemon12','id_pokemon13','id_pokemon21','id_pokemon22','id_pokemon23']);
@@ -546,7 +542,7 @@ class CombatController extends Controller
                 'poke1Pv'=>$newPoke1Pv,
                 'poke2Pv'=>$poke2Pv
             ]);
-            
+
             $poke1Pv = $newPoke1Pv;
             return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
         

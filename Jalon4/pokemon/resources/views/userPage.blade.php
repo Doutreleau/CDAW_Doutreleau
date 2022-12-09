@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> PokemonStop </title>
-    <link rel="stylesheet" href="css/styles.css" crossorigin="anonymous">
-   
-</head>
-<body>
+@extends('template')
+@section('content1')
 
-    <img class='userPagebackgroundImage' src = 'assets/img/background.jpg'></div>
 
-    <div class='userPageCircleParam'></div>
-    <img class='userPageParamImage'  src = 'assets/img/parameters.png'></img>
-    <a class='userPageParamText' href="/param">Parameters</a>
-
-    <div class='userPageCircleHelp'></div>
-    <img class='userPageHelpImage'  src = 'assets/img/help.png'></img>
-    <div class='userPageHelpText'>Help</div>
 
     <div class='userPageRect1'></div>
     <div class='userPageRect2'></div>
@@ -30,13 +16,12 @@
         
         ?></a>
         
-    <a class='userPageLogout'  href="/logout">Log out</a>
-    <img class='userPageLogoutImage' src = 'assets/img/logout2.png'></img>
 
-    <img class='userPagePokedexShape' src = 'assets/img/shape1.png'>></img>
-    <img class='userPagePokedexImage' src = 'assets/img/pokedex.png'></img>
-    <a class='userPagePokedexText' href="/pokemons">Open Pokedex</a>
-
+    <div  class='rectLoginRegister'></div>
+    <img class='registerShape' src = 'assets/img/shape2.png'></div>
+    <a class='registerText' href="/param">Parameters</a>
+    <img class='loginShape' src = 'assets/img/shape1.png'></div>
+    <a class='loginText' href="/logout">Log out</a>
     
     <img class='userPageBattleShape' src = 'assets/img/shape2.png'>></img>
     <img class='userPageBattleImage'  src = 'assets/img/battle.png'></img>
@@ -48,7 +33,5 @@
         </li>
     @endif
 
-    
-</body>
-</html>
+@endsection
 

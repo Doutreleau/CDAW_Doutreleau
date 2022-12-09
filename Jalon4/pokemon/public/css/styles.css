@@ -236,10 +236,12 @@ sup {
 }
 
 a {
-  color: #1abc9c;
+  color: #1abc9c;  
+  text-decoration: none;
 }
 a:hover {
-  color: #15967d;
+  color: #15967d;  
+  text-decoration: none;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -3027,8 +3029,8 @@ textarea.form-control-lg {
 
 .btn-primary {
   color: #fff;
-  background-color: #1abc9c;
-  border-color: #1abc9c;
+  background-color: #DB0111;
+  border-color: #DB0111;
 }
 .btn-primary:hover {
   color: #fff;
@@ -11508,7 +11510,7 @@ html {
   position: absolute;
   width: 299.01px;
   height: 100vh;
-  right:0px;
+  left:0px;
   top: 0px;
 
   background: rgba(255, 201, 5, 1);
@@ -11519,7 +11521,7 @@ html {
   position: absolute;
   width: 226.87px;
   height: 12.58px;
-  right:37px;
+  left: 41px;
   top: 180.9px;
 
   background: rgba(237, 29, 37, 0.68);
@@ -11529,7 +11531,7 @@ html {
   position: absolute;
   width: 226.87px;
   height: 12.58px;
-  right:37px;
+  left: 41px;
   top: 400px;
 
   background: rgba(237, 29, 37, 0.68);
@@ -11539,7 +11541,7 @@ html {
   position: absolute;
   width: 226.87px;
   height: 12.58px;
-  right:37px;
+  left: 41px;
   top: 608px;
 
   background: rgba(237, 29, 37, 0.68);
@@ -11551,7 +11553,7 @@ html {
   position: absolute;
   width: 80px;
   height: 117px;
-  right:100px;
+  left: 113px;
   top: 10px;
 
 }
@@ -11561,7 +11563,7 @@ html {
   position: absolute;
   width: 180px;
   height: 140px;
-  right:50px;
+  left: 54px;
   top: 194px;
 
 }
@@ -11570,7 +11572,7 @@ html {
   position: absolute;
   width: 228px;
   height: 116px;
-  right:30px;
+  left: 40px;
   top: 440px;
 
 }
@@ -11579,7 +11581,7 @@ html {
   position: absolute;
   width: 180px;
   height: 153px;
-  right:40px;
+  left: 65px;
   top: 640px;
 
 }
@@ -11589,7 +11591,7 @@ html {
   position: absolute;
   width: 280px;
   height: 22px;
-  right:10px;
+  left: 14px;
   top: 150px;  
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11604,7 +11606,7 @@ html {
   position: absolute;
   width: 280px;
   height: 22px;
-  right:10px;
+  left: 14px;
   top: 350px;  
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11619,7 +11621,7 @@ html {
   position: absolute;
   width: 280px;
   height: 22px;
-  right:10px;
+  left: 14px;
   top: 560px;  
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11634,7 +11636,7 @@ html {
   position: absolute;
   width: 280px;
   height: 22px;
-  right:10px;
+  left: 14px;
   top: 800px;  
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11678,21 +11680,31 @@ html {
   line-height: 43px;
 }
 
+.rectLoginRegister{
+  position: absolute;
+  width: 35%;
+  height: 200.97px;
+  right: 0px;
+  top: -2.87px;
+
+  background: #FFC905;
+}
+
 .registerShape{
   position: absolute;
-  width: 240px;
-  height: 255px;
-  left: 309.97px;
-  top: 406px;
+  width: 200px;
+  height: 215px;
+  right: 17%;
+  top: -20px;
   transform: rotate(52.01deg);
 }
 
 .loginShape{
   position: absolute;
-  width: 284px;
-  height: 218px;
-  left: 180px;
-  top: 659.53px;
+  width: 240px;
+  height: 180px;
+  right: 1%;
+  top: -10px;
   transform: rotate(-30.36deg); 
 }
 
@@ -11700,8 +11712,8 @@ html {
   position: absolute;
   width: 142px;
   height: 82px;
-  left: 382px;
-  top: 488px;
+  right: 20%;
+  top: 50px;
 
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11716,8 +11728,8 @@ html {
   position: absolute;
   width: 142px;
   height: 82px;
-  left: 311px;
-  top: 757px;
+  right: 1%;
+  top: 50px;
 
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11749,7 +11761,13 @@ html {
 }
 
 
-
+.loginPageShape{
+  position: absolute;
+  width: 762px;
+  height: 483px;
+  left: 22%;
+  top: 400px;
+}
 
 .userPageHelpImage{
   position: absolute;
@@ -11827,20 +11845,20 @@ html {
 .userPageRect1{
   position: absolute;
   width: 518.59px;
-  height: 94.67px;
-  left: 0.6px;
-  top: 100.87px;
+  height: 110px;
+  left: 25%;
+  top: 0px;
 
-  background: rgba(255, 201, 5, 0.83);
+  background: #FFC905;
   transform: rotate(0.36deg);
 }
 
 .userPageRect2{
   position: absolute;
   width: 518.59px;
-  height: 306px;
-  left: 0px;
-  top: 191px;
+  height: 206px;
+  left: 25%;
+  top: 100px;
 
   background: #95DAE1;
 }
@@ -11850,8 +11868,8 @@ html {
   position: absolute;
   width: 433px;
   height: 50px;
-  left: 42px;
-  top: 125px;
+  left:  28%;
+  top: 30px;
 
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11866,8 +11884,8 @@ html {
   position: absolute;
   width: 433px;
   height: 50px;
-  left: 31px;
-  top: 225px;
+  left:  28%;
+  top: 130px;
 
   font-family: 'Enriqueta';
   font-style: normal;
@@ -11883,8 +11901,8 @@ html {
   position: absolute;
   width: 433px;
   height: 50px;
-  left: 31px;
-  top: 301px;
+  left:  28%;
+  top: 200px;
 
   font-family: 'Enriqueta';
   font-style: normal;
@@ -12000,3 +12018,23 @@ html {
   z-index:-1;
 }
 
+
+.dataTables_wrapper {
+  position: absolute;
+  left:310px;
+  top: 0px;
+  height: 10%;
+  width: 80%;
+}
+
+.backgroundPokedex{
+  
+  position: absolute;
+  width: 100%;
+  height: 1600%;
+  left: 0px;
+  top: 0px;
+  z-index:-1;
+
+  background: #FDF6DB;
+}
