@@ -276,7 +276,8 @@ class CombatController extends Controller
                     $poke2Pv = $infoPoke21->pv_max;
                 }
 
-
+                $some_data = ['pass','data'];
+                //return view('/combat/round', compact('some_data'));
                 return view('/combat/round', ['user1'=>$user1,'user2'=>$user2,'poke1Name'=>$poke1Name,'poke1Image'=>$poke1Image,'poke1ScoreNormalAttack'=>$poke1ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke1Pv'=>$poke1Pv,'poke2Name'=>$poke2Name,'poke2Image'=>$poke2Image,'poke2ScoreNormalAttack'=>$poke2ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke2Pv'=>$poke2Pv]);
             }   
             else{            
@@ -310,10 +311,50 @@ class CombatController extends Controller
 
     public function doRound(Request $request){
         if((isset($_POST['Attaque_speciale']))) {
-            echo "e";
+            $poke1Name = $request->poke1[0];
+            $poke1ScoreSpecialAttack = $request->poke1ScoreSpecialAttack[0];
+            $poke1Pv = $request->poke1Pv[0];
+            
+            $poke2Name = $request->poke2[0];
+            $poke2ScoreSpecialAttack = $request->poke2ScoreSpecialAttack[0];
+            $poke2Pv = $request->poke2Pv[0];
+
+            $newPoke2Pv = $poke2Pv - $poke1ScoreSpecialAttack;
+            if ($newPoke2Pv<=0){
+                echo "The attacked pokemon does not have any pv left";
+            }
+            //DONT FORGET TO CREATE A 'TOUR' TABLE!!!
         }
-        else{
-            echo"nein";
+        else if((isset($_POST['Attaque_normale']))) {
+            $poke1Name = $request->poke1[0];
+            $poke1Pv = $request->poke1Pv[0];
+            $poke1ScoreNormalAttack = $request->poke1ScoreNormalAttack[0];
+
+            $poke2Name = $request->poke2[0];
+            $poke2Pv = $request->poke2Pv[0];
+            $poke2ScoreNormalAttack = $request->poke2ScoreNormalAttack[0];
+
+            $newPoke2Pv = $poke2Pv - $poke1ScoreNormalAttack;
+            if ($newPoke2Pv<0){
+                echo "The attacked pokemon does not have any pv left";
+            }
+        }
+        else if((isset($_POST['Defense_speciale']))) {
+            $poke1Name = $request->poke1[0];
+            $poke1Pv = $request->poke1Pv[0];
+            $poke1ScoreSpecialDefense = $request->poke1ScoreSpecialDefense[0];
+
+            $poke1PvMax1 = DB::table('pokemon_table')->where("name","=",$poke1Name)->get(['pv_max']);
+            foreach($poke1PvMax1 as $pv){
+                $poke1PvMax = $pv->pv_max;
+            }
+
+            $newPoke1Pv = $poke1Pv + $poke1ScoreSpecialDefense;
+            if($newPoke1Pv>$poke1PvMax){
+                $newPoke1Pv = $poke1PvMax;
+            }
+
+            //Cautious ! a pokemon cannot have more pv than pv_max!!! (so you'll have to connect to the DB)
         }
     }
 }
