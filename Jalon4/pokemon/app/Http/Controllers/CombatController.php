@@ -188,7 +188,6 @@ class CombatController extends Controller
                 $idsPokemon21 = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon21']);
                 foreach($idsPokemon21 as $idPoke21){
                     $idPokemon21 = $idPoke21->id_pokemon21;
-                    $endOfChoiceOfPokemons = true;// CAUTION : THIS HAS TO GO, IT S JUST HERE FOR TESTING!!!!
                       
                 }
                 $idsPokemon22 = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon22']);
@@ -310,36 +309,29 @@ class CombatController extends Controller
     }
 
     public function doRound(Request $request){
-        if((isset($_POST['Attaque_speciale']))) {
-            //getting the useful information
-            $poke1Name = $request->poke1[0];
-            $poke1ScoreSpecialAttack = $request->poke1ScoreSpecialAttack[0];
-            $poke1Pv = $request->poke1Pv[0];
-            
-            $poke2Name = $request->poke2[0];
-            $poke2ScoreSpecialAttack = $request->poke2ScoreSpecialAttack[0];
-            $poke2Pv = $request->poke2Pv[0];
+        //getting the useful information
+        $user1 = $request->user1[0];
+        $user2 = $request->user2[0];
 
-            
+        $poke1Name = $request->poke1[0];
+        $poke1Image = $request->poke1Image[0];
+        $poke1ScoreSpecialAttack = $request->poke1ScoreSpecialAttack[0];
+        $poke1ScoreSpecialDefense = $request->poke1ScoreSpecialDefense[0];
+        $poke1ScoreNormalAttack = $request->poke1ScoreNormalAttack[0];
+        $poke1Pv = $request->poke1Pv[0];
+
+        $poke2Name = $request->poke2[0];
+        $poke2Image = $request->poke2Image[0];
+        $poke2ScoreSpecialAttack = $request->poke2ScoreSpecialAttack[0];
+        $poke2ScoreSpecialDefense = $request->poke2ScoreSpecialDefense[0];
+        $poke2ScoreNormalAttack = $request->poke2ScoreNormalAttack[0];
+        $poke2Pv = $request->poke2Pv[0];
+
+        if((isset($_POST['Attaque_speciale']))) {
 
             $max_id = DB::table("combat")->get(["id"])->max('id');
 
             $newPoke2Pv = $poke2Pv - $poke1ScoreSpecialAttack;
-            if ($newPoke2Pv<=0){
-                $newPoke2Pv=0;
-                echo "The attacked pokemon does not have any pv left";
-                $lastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon13','id_pokemon23']);
-                //getting the id of the attacked pokemon
-                $poke2Ids = DB::table('pokemon_table')->where("name","=",$poke2Name)->get(['id']);
-                foreach($poke2Ids as$poke2Id){
-                    $poke2Id = $poke2Id->id;
-                }
-                foreach($lastPokemons as $pokemon){
-                    if(strcmp($poke2Id,$pokemon->id_pokemon13) || strcmp($poke2Id,$pokemon->id_pokemon23)){
-                        echo "end of the game";
-                    }
-                }
-            }
 
             $types = DB::table('types_combat')->where("type","=","attaque speciale")->get(['id']);
             foreach($types as $type){
@@ -354,26 +346,11 @@ class CombatController extends Controller
                 'poke1Pv'=>$poke1Pv,
                 'poke2Pv'=>$newPoke2Pv
             ]);
-        }
 
 
-        else if((isset($_POST['Attaque_normale']))) {
-            $poke1Name = $request->poke1[0];
-            $poke1Pv = $request->poke1Pv[0];
-            $poke1ScoreNormalAttack = $request->poke1ScoreNormalAttack[0];
-
-            $poke2Name = $request->poke2[0];
-            $poke2Pv = $request->poke2Pv[0];
-            $poke2ScoreNormalAttack = $request->poke2ScoreNormalAttack[0];
-
-            $max_id = DB::table("combat")->get(["id"])->max('id');
-            
-            $newPoke2Pv = $poke2Pv - $poke1ScoreNormalAttack;
             if ($newPoke2Pv<=0){
-                
                 $newPoke2Pv=0;
                 echo "The attacked pokemon does not have any pv left";
-                $max_id = DB::table("combat")->get(["id"])->max('id');
                 $lastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon13','id_pokemon23']);
                 //getting the id of the attacked pokemon
                 $poke2Ids = DB::table('pokemon_table')->where("name","=",$poke2Name)->get(['id']);
@@ -381,11 +358,77 @@ class CombatController extends Controller
                     $poke2Id = $poke2Id->id;
                 }
                 foreach($lastPokemons as $pokemon){
-                    if(strcmp($poke2Id,$pokemon->id_pokemon13) || strcmp($poke2Id,$pokemon->id_pokemon23)){
+                    if(strcmp($poke2Id,$pokemon->id_pokemon13)==0 || strcmp($poke2Id,$pokemon->id_pokemon23)==0){
+                        echo"\r\n";
                         echo "end of the game";
+                        //MAKE A VIEW FOR THE END OF THE GAME
+                    }
+                }
+                $beforeLastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon11','id_pokemon12','id_pokemon13','id_pokemon21','id_pokemon22','id_pokemon23']);
+                //Pokemon 2 doesn't have any pv left, it has to be replaced by the next pokemon
+                foreach($beforeLastPokemons as $pokemon){
+                    if(strcmp($poke2Id,$pokemon->id_pokemon21)==0){//if the current pokemon is the first pokemon of the second player
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon22)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                    }
+                    if(strcmp($poke2Id,$pokemon->id_pokemon22)==0){
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon23)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                    }
+                    if(strcmp($poke2Id,$pokemon->id_pokemon11)==0){
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon12)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                    }
+                    if(strcmp($poke2Id,$pokemon->id_pokemon12)==0){
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon13)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                 }
             }
+            $poke2Pv = $newPoke2Pv;
+            return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+            
+
+        }
+
+
+        else if((isset($_POST['Attaque_normale']))) {
+           
+            $max_id = DB::table("combat")->get(["id"])->max('id');
+            
+            $newPoke2Pv = $poke2Pv - $poke1ScoreNormalAttack;
 
             $types = DB::table('types_combat')->where("type","=","attaque normale")->get(['id']);
             foreach($types as $type){
@@ -400,17 +443,84 @@ class CombatController extends Controller
                 'poke1Pv'=>$poke1Pv,
                 'poke2Pv'=>$newPoke2Pv
             ]);
+
+            
+            if ($newPoke2Pv<=0){
+                $newPoke2Pv=0;
+                echo "The attacked pokemon does not have any pv left";
+                $lastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon13','id_pokemon23']);
+                //getting the id of the attacked pokemon
+                $poke2Ids = DB::table('pokemon_table')->where("name","=",$poke2Name)->get(['id']);
+                foreach($poke2Ids as$poke2Id){
+                    $poke2Id = $poke2Id->id;
+                }
+                foreach($lastPokemons as $pokemon){
+                    if(strcmp($poke2Id,$pokemon->id_pokemon13)==0 || strcmp($poke2Id,$pokemon->id_pokemon23)==0){
+                        echo"\r\n";
+                        echo "end of the game";
+                        //MAKE A VIEW FOR THE END OF THE GAME
+                    }
+                }
+                $beforeLastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon11','id_pokemon12','id_pokemon13','id_pokemon21','id_pokemon22','id_pokemon23']);
+                //Pokemon 2 doesn't have any pv left, it has to be replaced by the next pokemon
+                foreach($beforeLastPokemons as $pokemon){
+                    if(strcmp($poke2Id,$pokemon->id_pokemon21)==0){//if the current pokemon is the first pokemon of the second player
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon22)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                    }
+                    if(strcmp($poke2Id,$pokemon->id_pokemon22)==0){
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon23)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                    }
+                    if(strcmp($poke2Id,$pokemon->id_pokemon11)==0){
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon12)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                    }
+                    if(strcmp($poke2Id,$pokemon->id_pokemon12)==0){
+                        $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon13)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
+                        foreach($nextPokemons as $nextPokemon){
+                            $newPoke2Name = $nextPokemon->name;
+                            $newPoke2Image = $nextPokemon->path;
+                            $newPoke2ScoreNormalAttack = $nextPokemon->scoreNormalAttack;
+                            $newPoke2ScoreSpecialAttack = $nextPokemon->scoreSpecialAttack;
+                            $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
+                            $newPoke2Pv = $nextPokemon->pv_max;
+                        }
+                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                    }
+                }
+            }
+            $poke2Pv = $newPoke2Pv;
+            return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
         }
 
         
         else if((isset($_POST['Defense_speciale']))) {
-            $poke1Name = $request->poke1[0];
-            $poke1Pv = $request->poke1Pv[0];
-            $poke1ScoreSpecialDefense = $request->poke1ScoreSpecialDefense[0];
-            
-            $poke2Name = $request->poke2[0];
-            $poke2Pv = $request->poke2Pv[0];
-
+           
             $poke1PvMax1 = DB::table('pokemon_table')->where("name","=",$poke1Name)->get(['pv_max']);
             foreach($poke1PvMax1 as $pv){
                 $poke1PvMax = $pv->pv_max;
@@ -436,6 +546,10 @@ class CombatController extends Controller
                 'poke1Pv'=>$newPoke1Pv,
                 'poke2Pv'=>$poke2Pv
             ]);
+            
+            $poke1Pv = $newPoke1Pv;
+            return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+        
 
         }
     }

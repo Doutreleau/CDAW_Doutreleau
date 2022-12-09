@@ -20,11 +20,15 @@
 
         <form method="POST" action="/doRound">
         {{ csrf_field() }}
+            <input type="hidden" name="user1[]" value = "{{$user1}}">
+            <input type="hidden" name="user2[]" value = "{{$user2}}">
+
             <input type="hidden" name="poke1[]" value = "{{$poke1Name}}">
             <input type="hidden" name="poke1ScoreSpecialAttack[]" value = "{{$poke1ScoreSpecialAttack}}">
             <input type="hidden" name="poke1ScoreNormalAttack[]" value = "{{$poke1ScoreNormalAttack}}">
             <input type="hidden" name="poke1ScoreSpecialDefense[]" value = "{{$poke1ScoreSpecialDefense}}">
             <input type="hidden" name="poke1Pv[]" value = "{{$poke1Pv}}">
+            <input type="hidden" name="poke1Image[]" value = "{{$poke1Image}}">
 
             
             <input type="hidden" name="poke2[]" value = "{{$poke2Name}}">
@@ -32,6 +36,7 @@
             <input type="hidden" name="poke2ScoreNormalAttack[]" value = "{{$poke2ScoreNormalAttack}}">
             <input type="hidden" name="poke2ScoreSpecialDefense[]" value = "{{$poke2ScoreSpecialDefense}}">
             <input type="hidden" name="poke2Pv[]" value = "{{$poke2Pv}}">
+            <input type="hidden" name="poke2Image[]" value = "{{$poke2Image}}">
             <div class="form-group">
                 <input name="Attaque_normale" type="submit" class="button" value="Attaque normale">
             </div>
