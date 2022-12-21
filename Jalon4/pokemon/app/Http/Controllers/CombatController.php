@@ -356,7 +356,6 @@ class CombatController extends Controller
 
             if ($newPoke2Pv<=0){
                 $newPoke2Pv=0;
-                echo "The attacked pokemon does not have any pv left";
                 $lastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon13','id_pokemon23']);
                 //getting the id of the attacked pokemon
                 $poke2Ids = DB::table('pokemon_table')->where("name","=",$poke2Name)->get(['id']);
@@ -368,9 +367,10 @@ class CombatController extends Controller
                         //user1 wins, so the number of victories increases
                         $victorious_users = DB::table("users")->get(["name", "nb_victories"])->where("name","=",$user1);
                         foreach($victorious_users as $victorious_user){
+                            $winner = $victorious_user->name;
                             DB::table('users')->where("name","=",$victorious_user->name)->update(["nb_victories"=>(($victorious_user->nb_victories)+1)]);
                         }
-                        return view('/combat/end');
+                        return view('/combat/end', ['winner'=>$winner]);
                     }
                 }
                 $beforeLastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon11','id_pokemon12','id_pokemon13','id_pokemon21','id_pokemon22','id_pokemon23']);
@@ -456,7 +456,6 @@ class CombatController extends Controller
             
             if ($newPoke2Pv<=0){
                 $newPoke2Pv=0;
-                echo "The attacked pokemon does not have any pv left";
                 $lastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon13','id_pokemon23']);
                 //getting the id of the attacked pokemon
                 $poke2Ids = DB::table('pokemon_table')->where("name","=",$poke2Name)->get(['id']);
@@ -468,9 +467,10 @@ class CombatController extends Controller
                         //user1 wins, so the number of victories increases
                         $victorious_users = DB::table("users")->get(["name", "nb_victories"])->where("name","=",$user1);
                         foreach($victorious_users as $victorious_user){
+                            $winner = $victorious_user->name;
                             DB::table('users')->where("name","=",$victorious_user->name)->update(["nb_victories"=>(($victorious_user->nb_victories)+1)]);
                         }
-                        return view('/combat/end');
+                        return view('/combat/end', ['winner'=>$winner]);
                     }
                 }
                 $beforeLastPokemons = DB::table('participe')->where("id_combat","=",$max_id)->get(['id_pokemon11','id_pokemon12','id_pokemon13','id_pokemon21','id_pokemon22','id_pokemon23']);

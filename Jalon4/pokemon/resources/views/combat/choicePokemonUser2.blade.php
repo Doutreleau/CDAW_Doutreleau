@@ -38,7 +38,7 @@
         <tbody>
 
         <?php 
-        $currentUser = "The current user is ".$user1Name.", please click on the pokemon you want to choose";
+        $currentUser = "The current user is ".$user1Name.", please enter the name of the pokemon you want to choose";
         ?>
         <h4 style =" position: absolute; top: 20px; left: 320px; font-family: 'Enriqueta';  font-style: normal;">{{$currentUser}}</h4>
   

@@ -11,7 +11,8 @@
         } );</script>
 
     <div  class='backgroundPokedex'></div>
-    <h3>Pokédex</h3>
+    <h3 style =" position: absolute; top:60px; left: 310px">Pokedex :</h3>
+    
     <table id="Pokedex", class="display">
         <thead>
         <tr>

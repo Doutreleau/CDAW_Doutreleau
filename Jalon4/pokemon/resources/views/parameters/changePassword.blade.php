@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            <label for="password" style =" position: absolute; top:650px; left: 32%">Password:</label>
+            <label for="password" style =" position: absolute; top:650px; left: 32%">Current password:</label>
             <input type="password" class="form-control" id="password" name="password" style =" position: absolute; top:650px; left: 42%; width: 10%">
         </div>
 

@@ -15,7 +15,7 @@
     <h3 style =" position: absolute; top: 400px; left: 360px; font-family: 'Enriqueta';  font-style: normal;">{{$pokeUser1}}</h3>
 
     
-    <img style = "position: absolute; top: 350px; left:340px; width: 300px; height: width" src=<?php echo $poke1Image; ?> />
+    <img style = "position: absolute; top: 420px; left:340px; width: 300px; height: width" src=<?php echo $poke1Image; ?> />
     <h3 style =" position: absolute; top: 400px; left: 630px; font-family: 'Enriqueta';  font-style: normal;">{{$poke1Name}}</h3>
     <h3 style =" position: absolute; top: 450px; left: 630px; font-family: 'Enriqueta';  font-style: normal;"><?php echo $poke1Pv . " HP"; ?></h3>
 
