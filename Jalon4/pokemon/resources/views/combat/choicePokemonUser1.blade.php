@@ -1,11 +1,6 @@
 
-
-
-    
-
-
-<head>
-    <title> PokemonStop </title>
+@extends('template')
+@section('content1')
     <link rel="stylesheet" href="css/styles.css" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">  
@@ -16,12 +11,14 @@
         } );
         
         </script>
- </head>
+
+<div  class='backgroundPokedex'></div>
+
  <form method="POST" action="/choicePokemonUser2">
         {{ csrf_field() }}
-        <input type="text" placeholder="Enter the name of the pokemon you choose" name="pokemonName">
+        <input style =" position: absolute; top:60px; left: 310px" type="text" placeholder="Enter the name of the pokemon you choose" name="pokemonName">
         <div class="form-group">
-            <button style="cursor:pointer;" type="submit" class="btn btn-primary">Choose pokemon</button>
+            <button style="cursor:pointer;position: absolute; top:100px; left: 310px" type="submit" class="btn btn-primary">Choose pokemon</button>
         </div>
     </form>
 
@@ -40,9 +37,13 @@
         </tr>
         </thead>
         <tbody>
+        <?php 
+        $currentUser = "The current user is ".$user1Name.", please click on the pokemon you want to choose";
+        ?>
+        <h4 style =" position: absolute; top: 20px; left: 320px; font-family: 'Enriqueta';  font-style: normal;">{{$currentUser}}</h4>
+  
 
         <?php 
-        echo "The current user is ".$user1Name.", please click on the pokemon you want to choose";
         foreach ($pokemons as $pokemon) {
 
             $energies = DB::table("energy")->get(["id", "name"])->where("id","=",$pokemon->energy);
@@ -87,3 +88,4 @@
     });
     </script>
     
+    @endsection

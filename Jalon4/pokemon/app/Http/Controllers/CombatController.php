@@ -167,6 +167,9 @@ class CombatController extends Controller
         foreach($user1Names as $user1Name){
             $user1 = $user1Name->name;
         }                
+        echo '<script type ="text/JavaScript">';  
+        echo 'alert("The name of the pokemon is not correct")';  
+        echo '</script>';   
         return view('/combat/choicePokemonUser1', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser1,'user1Name'=>$user1]);
 
         
@@ -304,6 +307,9 @@ class CombatController extends Controller
         foreach($user2Names as $user2Name){
             $user2 = $user2Name->name;
         }                
+        echo '<script type ="text/JavaScript">';  
+        echo 'alert("The name of the pokemon is not correct")';   
+        echo '</script>';   
         return view('/combat/choicePokemonUser2', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser2,'user1Name'=>$user2]);
                     
     }
