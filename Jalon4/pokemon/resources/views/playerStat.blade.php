@@ -11,7 +11,7 @@
         } );</script>
 
     <div  class='backgroundPokedex'></div>
-    <h3>Statistics of users</h3>
+    <h3 style =" position: absolute; top:20px; left: 310px">Players statistics : </h3>
     <table id="Pokedex", class="display">
         <thead>
         <tr>

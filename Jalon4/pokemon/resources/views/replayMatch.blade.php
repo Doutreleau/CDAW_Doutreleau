@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> PokemonStop </title>
-    <link rel="stylesheet" href="css/styles.css" crossorigin="anonymous">
+@extends('template')
 
-</head>
-<body>
+@section('content1')
+<div  class='backgroundPokedex'></div>
 
-
+<h2 style =" position: absolute; top: 20px; left: 320px; font-family: 'Enriqueta';  font-style: normal;">Summary of the battle:</h2>
+        
 <?php 
-    
     //get the names of the players
     $matches = DB::table('combat')->where('id','=',$matchId)->get(['id_user1','id_user2']);
     foreach($matches as $match){
@@ -66,13 +62,13 @@
         else{
             $message = $message . " does not have any HP left. ";
         }
-        $a = 80 * $count;?>
+        $top = 80 * $count;?>
 
-        <h4 style =" position: absolute; top: {{$a}}px; left: 310px">{{$message}}</h4>
+        <h4 style =" position: absolute; top: {{$top}}px; left: 320px; font-family: 'Enriqueta';  font-style: normal;  font-weight: 500;  font-size: 20px;  line-height: 27px;">{{$message}}</h4>
         <?php 
     }
     $count = $count + 1;
-    $a = 80 * $count;
+    $top= 80 * $count;
     if($player1IsPlaying){
         $end = "The winner is " . $name_user2 . ". ";
     }
@@ -80,11 +76,10 @@
         $end = "The winner is " . $name_user1 . ". ";
     }
     ?>
-    <h4 style =" position: absolute; top: {{$a}}px; left: 310px">{{$end}}</h4>
+    <h4  style =" position: absolute; top: {{$top}}px; left: 320px; font-family: 'Enriqueta';  font-style: normal;  font-weight: 500;  font-size: 20px;  line-height: 27px;">{{$end}}</h4>
 
 
 
 
-    
-</body>
-</html>
+    @yield('content')
+@endsection

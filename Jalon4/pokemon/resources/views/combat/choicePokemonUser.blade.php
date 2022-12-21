@@ -14,6 +14,7 @@
  </head>
 
     @yield('content')
+    
 
     <table id="Pokedex", class="display">
         <thead>
