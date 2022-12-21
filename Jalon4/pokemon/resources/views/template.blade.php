@@ -23,8 +23,8 @@
     <img class='imageStats' src = 'assets/img/statistics.png'></div>
     <a class='textHelp'>Help</a>
     <a href="/pokemons" class='textPokedex'>Open Pokedex</a>
-    <a class='textBattle'>Replay previous battles</a>
-    <a class='textStat'>View players statistics</a>
+    <a href="/chooseMatchToReplay" class='textBattle'>Replay previous battles</a>
+    <a href="/playerStat" class='textStat'>View players statistics</a>
 
 
     

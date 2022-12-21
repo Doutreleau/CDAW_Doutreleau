@@ -18,6 +18,11 @@ Route::get('/pokemons','App\Http\controllers\listePokemonsController@index');
 Route::get('/','App\Http\controllers\listePokemonsController@welcome');
 Route::get('/user','App\Http\controllers\listePokemonsController@userPage');
 
+Route::get('/playerStat','App\Http\controllers\listePokemonsController@playerStat');
+
+Route::get('/chooseMatchToReplay','App\Http\controllers\listePokemonsController@chooseMatchToReplay');
+Route::post('/replayMatch','App\Http\controllers\listePokemonsController@replayMatch');
+
 Route::get('/param','App\Http\controllers\listePokemonsController@parametersPage');
 Route::get('/namechange','App\Http\controllers\ParametersChange@getChangeName');
 Route::post('/namechange','App\Http\controllers\ParametersChange@changeName');

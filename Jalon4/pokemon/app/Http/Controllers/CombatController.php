@@ -359,6 +359,11 @@ class CombatController extends Controller
                 }
                 foreach($lastPokemons as $pokemon){
                     if(strcmp($poke2Id,$pokemon->id_pokemon13)==0 || strcmp($poke2Id,$pokemon->id_pokemon23)==0){
+                        //user1 wins, so the number of victories increases
+                        $victorious_users = DB::table("users")->get(["name", "nb_victories"])->where("name","=",$user1);
+                        foreach($victorious_users as $victorious_user){
+                            DB::table('users')->where("name","=",$victorious_user->name)->update(["nb_victories"=>(($victorious_user->nb_victories)+1)]);
+                        }
                         return view('/combat/end');
                     }
                 }
@@ -454,6 +459,11 @@ class CombatController extends Controller
                 }
                 foreach($lastPokemons as $pokemon){
                     if(strcmp($poke2Id,$pokemon->id_pokemon13)==0 || strcmp($poke2Id,$pokemon->id_pokemon23)==0){
+                        //user1 wins, so the number of victories increases
+                        $victorious_users = DB::table("users")->get(["name", "nb_victories"])->where("name","=",$user1);
+                        foreach($victorious_users as $victorious_user){
+                            DB::table('users')->where("name","=",$victorious_user->name)->update(["nb_victories"=>(($victorious_user->nb_victories)+1)]);
+                        }
                         return view('/combat/end');
                     }
                 }

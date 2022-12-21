@@ -40,4 +40,20 @@ class listePokemonsController extends Controller
     public function parametersPage(){
         return view('/parameters/parametersPage');
     }
+
+    public function playerStat(){
+        $users = DB::table('users')->get();
+        return view('/playerStat', ['users' => $users]);
+    }
+
+    public function chooseMatchToReplay(){
+        $matches = DB::table('combat')->get();
+        return view('/chooseMatchToReplay', ['matches' => $matches]);
+    }
+
+    public function replayMatch(Request $request){
+        
+        $matchId = $request ->matchId;
+        return view('/replayMatch', ['matchId' => $matchId]);
+    }
 }
