@@ -7,6 +7,15 @@
     <img style="position: absolute; top: 160px; left:370px; width: 580px; height: width; transform: rotate(52.01deg);" src = 'assets/img/shape2.png'></div>
     
     <?php 
+        $pokeDown = "";
+        if($isPokeDown){
+            $pokeDown = "The attacked pokemon does not have any hp left. It was replaced by " . $poke1Name;
+        }
+        ?>
+        <h2 style =" position: absolute; top: 120px; left: 360px; font-family: 'Enriqueta';  font-style: normal;">{{$pokeDown}}</h2>
+
+
+    <?php 
         $currentUser = "The current user is ".$user1;
         $pokeUser1 = $user1 . "'s pokemon:";
         $pokeUser2 = $user2 . "'s pokemon:";
@@ -24,16 +33,6 @@
     <img style = "position: absolute; top: 200px; right:5%; width: 300px; height: width" src=<?php echo $poke2Image; ?> />
     <h3 style =" position: absolute; top: 200px;  right:5%; font-family: 'Enriqueta';  font-style: normal;">{{$poke2Name}}</h3>
     <h3 style =" position: absolute; top: 250px;  right:5%; font-family: 'Enriqueta';  font-style: normal;"><?php echo $poke2Pv . " HP"; ?></h3>
-
-
-    <h1> Current player : </h1>
-    {{$user1}}
-    <h1> Next player : </h1>
-    {{$user2}}
-    <h3> Current pokemon : </h3>
-    {{$poke1Name}}
-    <h3> Pv current pokemon : </h3>
-    {{$poke1Pv}}
 
     <form method="POST" action="/doRound">
     {{ csrf_field() }}

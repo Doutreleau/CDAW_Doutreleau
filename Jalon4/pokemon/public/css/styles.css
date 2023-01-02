@@ -240,7 +240,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #15967d;  
+  color: #FFFFFF;  
   text-decoration: none;
 }
 
@@ -3034,27 +3034,27 @@ textarea.form-control-lg {
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #16a085;
-  border-color: #15967d;
+  background-color: #8F050F;
+  border-color: #8F050F;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
-  background-color: #16a085;
-  border-color: #15967d;
+  background-color: #8F050F;
+  border-color: #8F050F;
   box-shadow: 0 0 0 0.25rem rgba(60, 198, 171, 0.5);
 }
 .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #15967d;
-  border-color: #148d75;
+  background-color: #8F050F;
+  border-color: #8F050F;
 }
 .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.25rem rgba(60, 198, 171, 0.5);
 }
 .btn-primary:disabled, .btn-primary.disabled {
   color: #fff;
-  background-color: #1abc9c;
-  border-color: #1abc9c;
+  background-color: #8F050F;
+  border-color: #8F050F;
 }
 
 .btn-secondary {
@@ -11522,7 +11522,7 @@ html {
   width: 226.87px;
   height: 12.58px;
   left: 41px;
-  top: 180.9px;
+  top: 18%;
 
   background: rgba(237, 29, 37, 0.68);
 }
@@ -11532,7 +11532,7 @@ html {
   width: 226.87px;
   height: 12.58px;
   left: 41px;
-  top: 400px;
+  top:38%;
 
   background: rgba(237, 29, 37, 0.68);
 }
@@ -11542,57 +11542,90 @@ html {
   width: 226.87px;
   height: 12.58px;
   left: 41px;
-  top: 608px;
+  top: 58%;
 
   background: rgba(237, 29, 37, 0.68);
 }
 
 
+.rectangleRed4{
+  position: absolute;
+  width: 226.87px;
+  height: 12.58px;
+  left: 41px;
+  top: 78%;
+
+  background: rgba(237, 29, 37, 0.68);
+}
+
+
+.imageHome{
+  position: absolute;
+  width: 5%;
+  height: width;
+  left: 110px;
+  top: 1%;
+
+}
 
 .imageHelp{
   position: absolute;
-  width: 80px;
-  height: 117px;
+  width: 4%;
+  height: width;
   left: 113px;
-  top: 10px;
+  top: 20%;
 
 }
 
 
 .imagePokedex{
   position: absolute;
-  width: 180px;
-  height: 140px;
-  left: 54px;
-  top: 194px;
+  width: 9%;
+  height: width;
+  left: 80px;
+  top: 40%;
 
 }
 
 .imageReplayBattles{
   position: absolute;
-  width: 228px;
-  height: 116px;
-  left: 40px;
-  top: 440px;
+  width: 10%;
+  height: width/2;
+  left: 60px;
+  top: 60%;
 
 }
 
 .imageStats{
   position: absolute;
-  width: 180px;
-  height: 153px;
-  left: 65px;
-  top: 640px;
+  width: 8%;
+  height: width;
+  left: 90px;
+  top: 80%;
 
 }
 
+.textHome{
+  position: absolute;
+  width: 280px;
+  height: 22px;
+  left: 14px;
+  top: 13%;  
+  font-family: 'Enriqueta';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+  text-align: center;  
+  color: #000000;  
+}
 
 .textHelp{
   position: absolute;
   width: 280px;
   height: 22px;
   left: 14px;
-  top: 150px;  
+  top: 33%;  
   font-family: 'Enriqueta';
   font-style: normal;
   font-weight: 500;
@@ -11607,7 +11640,7 @@ html {
   width: 280px;
   height: 22px;
   left: 14px;
-  top: 350px;  
+  top: 53%;   
   font-family: 'Enriqueta';
   font-style: normal;
   font-weight: 500;
@@ -11622,7 +11655,7 @@ html {
   width: 280px;
   height: 22px;
   left: 14px;
-  top: 560px;  
+  top: 73%;   
   font-family: 'Enriqueta';
   font-style: normal;
   font-weight: 500;
@@ -11637,7 +11670,7 @@ html {
   width: 280px;
   height: 22px;
   left: 14px;
-  top: 800px;  
+  top: 96%;    
   font-family: 'Enriqueta';
   font-style: normal;
   font-weight: 500;
@@ -11659,7 +11692,7 @@ html {
 .rectLogo{
   position: absolute;
   width: 30%;
-  height: 40%;
+  height: 42%;
   left:30%;
   top: 12px;
 
@@ -11671,12 +11704,12 @@ html {
   width: 606px;
   height: 82px;
   left:32%;
-  top: 295px;
+  top: 35%;
   color: #FFFFFF;   
   font-family: 'Enriqueta';
   font-style: normal;
   font-weight: 500;
-  font-size: 32px;
+  font-size: 28px;
   line-height: 43px;
 }
 

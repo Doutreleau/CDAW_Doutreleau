@@ -278,9 +278,7 @@ class CombatController extends Controller
                     $poke2Pv = $infoPoke21->pv_max;
                 }
 
-                $some_data = ['pass','data'];
-                //return view('/combat/round', compact('some_data'));
-                return view('/combat/round', ['user1'=>$user1,'user2'=>$user2,'poke1Name'=>$poke1Name,'poke1Image'=>$poke1Image,'poke1ScoreNormalAttack'=>$poke1ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke1Pv'=>$poke1Pv,'poke2Name'=>$poke2Name,'poke2Image'=>$poke2Image,'poke2ScoreNormalAttack'=>$poke2ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke2Pv'=>$poke2Pv]);
+                return view('/combat/round', ['isPokeDown' =>false,'user1'=>$user1,'user2'=>$user2,'poke1Name'=>$poke1Name,'poke1Image'=>$poke1Image,'poke1ScoreNormalAttack'=>$poke1ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke1Pv'=>$poke1Pv,'poke2Name'=>$poke2Name,'poke2Image'=>$poke2Image,'poke2ScoreNormalAttack'=>$poke2ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke2Pv'=>$poke2Pv]);
             }   
             else{            
                 return view('/combat/choicePokemonUser1', ['pokemons' => $pokemons,'listEnergiesUser1' => $listEnergiesUser1,'user1Name'=>$user1]);
@@ -386,7 +384,7 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                     if(strcmp($poke2Id,$pokemon->id_pokemon22)==0){
                         $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon23)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
@@ -398,7 +396,7 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                     if(strcmp($poke2Id,$pokemon->id_pokemon11)==0){
                         $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon12)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
@@ -410,7 +408,7 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                     if(strcmp($poke2Id,$pokemon->id_pokemon12)==0){
                         $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon13)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
@@ -422,12 +420,12 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                 }
             }
             $poke2Pv = $newPoke2Pv;
-            return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+            return view('/combat/round', ['isPokeDown' =>false,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
             
 
         }
@@ -486,7 +484,7 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                     if(strcmp($poke2Id,$pokemon->id_pokemon22)==0){
                         $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon23)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
@@ -498,7 +496,7 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                     if(strcmp($poke2Id,$pokemon->id_pokemon11)==0){
                         $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon12)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
@@ -510,7 +508,7 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                     if(strcmp($poke2Id,$pokemon->id_pokemon12)==0){
                         $nextPokemons = DB::table('pokemon_table')->where("id","=",$pokemon->id_pokemon13)->get(['name','path','scoreSpecialAttack','scoreSpecialDefense','scoreNormalAttack','pv_max']);
@@ -522,12 +520,12 @@ class CombatController extends Controller
                             $newPoke2ScoreSpecialDefense = $nextPokemon->scoreSpecialDefense;
                             $newPoke2Pv = $nextPokemon->pv_max;
                         }
-                        return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+                        return view('/combat/round', ['isPokeDown' =>true,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$newPoke2Name,'poke1Image'=>$newPoke2Image,'poke1ScoreNormalAttack'=>$newPoke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$newPoke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$newPoke2ScoreSpecialDefense, 'poke1Pv'=>$newPoke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
                     }
                 }
             }
             $poke2Pv = $newPoke2Pv;
-            return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+            return view('/combat/round', ['isPokeDown' =>false,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
         }
 
         
@@ -560,7 +558,7 @@ class CombatController extends Controller
             ]);
 
             $poke1Pv = $newPoke1Pv;
-            return view('/combat/round', ['user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
+            return view('/combat/round', ['isPokeDown' =>false,'user1'=>$user2,'user2'=>$user1,'poke1Name'=>$poke2Name,'poke1Image'=>$poke2Image,'poke1ScoreNormalAttack'=>$poke2ScoreNormalAttack,'poke1ScoreSpecialAttack'=>$poke2ScoreSpecialAttack,'poke1ScoreSpecialDefense'=>$poke2ScoreSpecialDefense, 'poke1Pv'=>$poke2Pv,'poke2Name'=>$poke1Name,'poke2Image'=>$poke1Image,'poke2ScoreNormalAttack'=>$poke1ScoreNormalAttack ,'poke2ScoreSpecialAttack'=>$poke1ScoreSpecialAttack,'poke2ScoreSpecialDefense'=>$poke1ScoreSpecialDefense, 'poke2Pv'=>$poke1Pv]);
         
 
         }
