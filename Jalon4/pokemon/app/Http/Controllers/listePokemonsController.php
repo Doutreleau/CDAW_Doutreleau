@@ -56,4 +56,8 @@ class listePokemonsController extends Controller
         $matchId = $request ->matchId;
         return view('/replayMatch', ['matchId' => $matchId]);
     }
+
+    public function help(){
+        return view('/help');
+    }
 }

@@ -82,7 +82,7 @@ class PokemonTableSeeder extends Seeder
         showPokemonsOfOnePage($page);
 
         //get the Pokemons of the next pages (the number of them is $num_of_pages_to_cover)
-        $num_of_pages_to_cover = 20;
+        $num_of_pages_to_cover = 5;
         for ($num_of_pages = 1; $num_of_pages<$num_of_pages_to_cover; $num_of_pages++){
             $num_of_offset = $num_of_pages * 20;
             $urlPage = 'https://pokeapi.co/api/v2/pokemon/'.'?offset='.$num_of_offset.'&limit=20';

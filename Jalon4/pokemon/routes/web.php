@@ -20,6 +20,8 @@ Route::get('/user','App\Http\controllers\listePokemonsController@userPage');
 
 Route::get('/playerStat','App\Http\controllers\listePokemonsController@playerStat');
 
+Route::get('/help','App\Http\controllers\listePokemonsController@help');
+
 Route::get('/chooseMatchToReplay','App\Http\controllers\listePokemonsController@chooseMatchToReplay');
 Route::post('/replayMatch','App\Http\controllers\listePokemonsController@replayMatch');
 
